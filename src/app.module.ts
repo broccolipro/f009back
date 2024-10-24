@@ -8,11 +8,11 @@ import { Category } from "./categories/category.entity";
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',  // or your PostgreSQL host
-      port: 5432,
-      username: 'den',
-      password: 'den',
-      database: 'f009',
+      host: 'aws-0-eu-central-1.pooler.supabase.com',  // or your PostgreSQL host
+      port: 6543,
+      username: 'postgres.lemorezacxlfopyjydqk',
+      password: 'zohsU5-gafboh-zagtig',
+      database: 'postgres',
       entities: [Category],
       synchronize: true,
     }),
