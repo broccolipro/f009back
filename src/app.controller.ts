@@ -30,7 +30,7 @@ export class AppController {
     return JSON.stringify(isThereUpdates)
   }
 
-  @Get('setUpdates')
+  @Get('api/setUpdates')
   async setUpdates() {
     isThereUpdates = !isThereUpdates;
     return JSON.stringify(isThereUpdates)
