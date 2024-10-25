@@ -4,7 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Category } from "./categories/category.entity";
 import { Repository } from "typeorm";
 
-const isThereUpdates = false;
+let isThereUpdates = false;
 
 @Controller()
 export class AppController {
@@ -26,6 +26,13 @@ export class AppController {
 
   @Get('api/isThereUpdates')
   async getUpdatesAvailability() {
+    console.log('Query for updates');
+    return JSON.stringify(isThereUpdates)
+  }
+
+  @Get('setUpdates')
+  async setUpdates() {
+    isThereUpdates = !isThereUpdates;
     return JSON.stringify(isThereUpdates)
   }
 }
