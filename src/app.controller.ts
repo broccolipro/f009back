@@ -27,7 +27,7 @@ export class AppController {
   @Get('api/isThereUpdates')
   async getUpdatesAvailability() {
     console.log('Query for updates');
-    await new Promise((resolve, reject) => setTimeout(() => null, 1000))
+    await new Promise((resolve, reject) => setTimeout(() => resolve(), 1000))
     return  JSON.stringify(isThereUpdates)
   }
 
