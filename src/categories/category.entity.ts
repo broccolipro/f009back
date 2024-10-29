@@ -13,6 +13,6 @@ export class Category {
   text: string
 
   @Column('text', {nullable: true})
-  image: string
+  imageUrl: string
 
 }
