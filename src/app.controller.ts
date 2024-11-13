@@ -1,8 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from "@nestjs/common";
 import { AppService } from './app.service';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Category } from "./categories/category.entity";
 import { Repository } from "typeorm";
+import {Response} from "express";
+import * as path from "path";
 
 let isThereUpdates = false;
 
@@ -14,8 +16,8 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(@Res() res: Response) {
+    return 'hello'
   }
   @Get('/api/categories')
   async getText(): Promise<string> {

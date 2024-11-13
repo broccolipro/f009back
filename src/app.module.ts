@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Category } from "./categories/category.entity";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from 'path'
+
 
 @Module({
   imports: [
@@ -16,7 +19,8 @@ import { Category } from "./categories/category.entity";
       entities: [Category],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Category])
+    TypeOrmModule.forFeature([Category]),
+    ServeStaticModule.forRoot({ rootPath: join('src/public/')}),
   ],
   controllers: [AppController],
   providers: [AppService],
