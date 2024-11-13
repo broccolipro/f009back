@@ -11,7 +11,7 @@ import { join } from 'path'
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'aws-0-eu-central-1.pooler.supabase.com',  // or your PostgreSQL host
+      host: 'aws-0-eu-central-1.pooler.supabase.com',
       port: 6543,
       username: 'postgres.lemorezacxlfopyjydqk',
       password: 'zohsU5-gafboh-zagtig',
@@ -20,9 +20,10 @@ import { join } from 'path'
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Category]),
-    ServeStaticModule.forRoot({ rootPath: join('src/public/')}),
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public')}),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
