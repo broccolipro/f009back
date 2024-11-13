@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from "@nestjs/common";
+import { Controller, Get, Redirect, Res } from "@nestjs/common";
 import { AppService } from './app.service';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Category } from "./categories/category.entity";
@@ -15,9 +15,10 @@ export class AppController {
     @InjectRepository(Category) private categoryRepository: Repository<Category>
   ) {}
 
-  @Get()
-  getHello(@Res() res: Response) {
-    return 'hello'
+  @Get('/')
+  @Redirect('/public', 302)
+  async getHello() {
+    return this.appService.getHello()
   }
   @Get('/api/categories')
   async getText(): Promise<string> {

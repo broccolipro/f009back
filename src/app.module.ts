@@ -20,7 +20,7 @@ import { join } from 'path'
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Category]),
-    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public')}),
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public'), serveRoot: '/public'}),
   ],
   controllers: [AppController],
   providers: [AppService],
