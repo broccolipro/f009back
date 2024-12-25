@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Category } from "./categories/category.entity";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from 'path'
+import { UserModule } from './user/user.module';
+import { ReviewModule } from './review/review.module';
+import { Review } from "./review/entities/review.entity";
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -16,11 +19,13 @@ import { join } from 'path'
       username: 'postgres.lemorezacxlfopyjydqk',
       password: 'zohsU5-gafboh-zagtig',
       database: 'postgres',
-      entities: [Category],
+      entities: [Review],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Category]),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public'), serveRoot: '/public'}),
+    UserModule,
+    ReviewModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
