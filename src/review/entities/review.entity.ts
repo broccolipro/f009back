@@ -5,9 +5,6 @@ export class Review {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({type: "varchar", length: 255})
-  title: string
-
   @Column({type: 'text'})
   text: string
 

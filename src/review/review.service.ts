@@ -4,16 +4,25 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Review } from "./entities/review.entity";
+import { BlobService } from "../blob/blob.service";
 
 @Injectable()
 export class ReviewService {
 
   constructor(
-    @InjectRepository(Review) private readonly reviewRepository: Repository<Review>
+    @InjectRepository(Review)
+    private readonly reviewRepository: Repository<Review>,
+    private readonly blobService: BlobService
   ) {}
 
-  create(createReviewDto: CreateReviewDto) {
-    return createReviewDto;
+  async create(dto: CreateReviewDto, files: Express.Multer.File[]): Promise<Review> {
+    const imageSet: string[] = await this.blobService.upload(files)
+    const review = new Review()
+    review.text = dto.text
+    review.rating = dto.rating
+    review.imageSet = imageSet
+
+    return this.reviewRepository.save(review)
   }
 
   findAll() {

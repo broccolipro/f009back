@@ -1,8 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  UseInterceptors,
+  UploadedFiles
+} from "@nestjs/common";
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { JwtAuthGuard } from "../auth/jwt/JwtAuthGuard";
+import { FilesInterceptor } from "@nestjs/platform-express";
 
 @Controller('review')
 export class ReviewController {
@@ -10,8 +22,9 @@ export class ReviewController {
 
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  create(@Body() createReviewDto: CreateReviewDto) {
-    return this.reviewService.create(createReviewDto);
+  @UseInterceptors(FilesInterceptor('images'))
+  create(@UploadedFiles() files: Express.Multer.File[], @Body() createReviewDto: CreateReviewDto) {
+    return this.reviewService.create(createReviewDto, files);
   }
 
   @Get('/all')

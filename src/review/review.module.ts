@@ -4,6 +4,7 @@ import { ReviewController } from './review.controller';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Review } from "./entities/review.entity";
 import { AuthModule } from "../auth/auth.module";
+import { BlobService } from "../blob/blob.service";
 
 @Module({
   imports: [
@@ -11,6 +12,9 @@ import { AuthModule } from "../auth/auth.module";
     AuthModule
   ],
   controllers: [ReviewController],
-  providers: [ReviewService],
+  providers: [
+    ReviewService,
+    BlobService
+  ],
 })
 export class ReviewModule {}

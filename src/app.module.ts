@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { ReviewModule } from './review/review.module';
 import { Review } from "./review/entities/review.entity";
 import { AuthModule } from './auth/auth.module';
+import { BlobService } from './blob/blob.service';
+import { ConfigModule } from "@nestjs/config";
 
 
 @Module({
@@ -23,12 +25,16 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public'), serveRoot: '/public'}),
+    ConfigModule.forRoot({
+      isGlobal: true, // Makes ConfigModule available throughout the application
+      envFilePath: `.env.${process.env.NODE_ENV || 'development.local'}`, // Load environment-specific file
+    }),
     UserModule,
     ReviewModule,
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, BlobService],
 })
 export class AppModule {}
 
