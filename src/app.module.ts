@@ -14,21 +14,21 @@ import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development.local'}`,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'aws-0-eu-central-1.pooler.supabase.com',
+      host: process.env.DB_HOST,
+      username: process.env.DB_UN,
+      password: process.env.DB_PASSWORD,
       port: 6543,
-      username: 'postgres.lemorezacxlfopyjydqk',
-      password: 'zohsU5-gafboh-zagtig',
       database: 'postgres',
       entities: [Review],
       synchronize: true,
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public'), serveRoot: '/public'}),
-    ConfigModule.forRoot({
-      isGlobal: true, // Makes ConfigModule available throughout the application
-      envFilePath: `.env.${process.env.NODE_ENV || 'development.local'}`, // Load environment-specific file
-    }),
     UserModule,
     ReviewModule,
     AuthModule,
